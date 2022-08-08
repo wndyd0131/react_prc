@@ -1,0 +1,30 @@
+<!--Transform createElement to Component-->
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script> <!--기본 JS에서 JSX 실행을 위해 Babel 컴파일러 필요-->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    const Title = (<h3 id="title" onMouseEnter={() => console.log("mouse entered")}>Hello I'm a title</h3>);
+    const Button = (<button style={{backgroundColor: "tomato",}} onClic={() => console.log("im clicked")}>Click me</button>)
+    //밑에 주석처리 된 createElement 대신 위의 두 컴포넌트가 됨
+    /*const h3 = React.createElement(
+      "h3", {onMouseEnter: () => console.log("mouse enter"),
+    }, 
+    "Hello I'm a span"
+    ); //event listener */
+
+    /*
+    const btn = React.createElement("button", {
+      onClick: () => console.log("I'm clicked"), //event listener
+    }, "Click me"
+    );
+    */
+    const container = React.createElement("div", null, [Title, Button]); //여러 element를 렌더링하고 싶을 때
+    ReactDOM.render(Container, root);
+  </script>
+</html>

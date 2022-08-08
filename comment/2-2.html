@@ -1,0 +1,16 @@
+<!--createElement-->
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script>
+    const root = document.getElementById("root");
+    const span = React.createElement("span", {id: "sexy-span", style:{color:'red'}}, "Hello I'm a span"); //id 필드 생성
+    ReactDOM.render(span, root);
+    //react는 바닐라 JS와는 달리, html(element)을 먼저 생성하는 것이 아니라 JS를 통해 값을 부여한 뒤 html dom을 생성
+    //바닐라 JS는 반대로 html 생성 후 그걸 가져와서 필드를 부여하는 작업을 함
+  </script>
+</html>

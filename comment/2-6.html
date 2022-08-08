@@ -1,0 +1,37 @@
+<!--Make components into functions-->
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script> <!--기본 JS에서 JSX 실행을 위해 Babel 컴파일러 필요-->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    function Title() { //함수화
+      return (
+        <h3 id="title" onMouseEnter={
+          () => console.log("mouse entered")
+        }>Hello I'm a title</h3>
+        );
+      }
+    function Button() {
+      return (<button style={{backgroundColor: "tomato",}} onClick={() => console.log("im clicked")
+        }>Click me</button>
+      );
+    }
+
+    function Container() {
+      return(
+    <div>
+      <Title/>
+      <Button/>
+    </div>
+    );
+  }
+    const container = React.createElement("div", null, [Title, Button]); //여러 element를 렌더링하고 싶을 때
+    ReactDOM.render(<Container/>, root);
+  </script>
+</html>
