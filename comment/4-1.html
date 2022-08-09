@@ -1,3 +1,5 @@
+<!--memo-->
+<!-- #memo는 컴포넌트 자신이 변하지 않으면 재렌더링되지 않도록 함 -->
 <!DOCTYPE html>
 <html>
   <body>
@@ -6,11 +8,10 @@
   <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script> <!--기본 JS에서 JSX 실행을 위해 Babel 컴파일러 필요-->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
   //ConfirmBtn과 SaveBtn 컴포넌트를 지우고 Btn으로 통일, props를 사용하면 되기 때문
-  function Btn(props){ //각 props에게 default값을 줄 수도 있음
+  function Btn(props){
     return <button 
     onClick={props.changeValue} style={{
       backgroundColor: "tomato",
@@ -21,17 +22,14 @@
       fontSize: 16,
     }}>{props.text}</button>
   }
-  Btn.propTypes = { //prop-types 모듈을 설치한 뒤 사용. 타입이 지정되어 잘못 입력 시 오류나게 함
-    text: PropTypes.string.isRequired,
-    fontSize: PropTypes.number.isRequired,
-  }
+  const MemorizedBtn = React.memo(Btn); //memo: 컴포넌트를 memorized로 만듦, 즉 해당 컴포넌트(하위 컴포넌트 자신)의 state에 변화가 없으면 재렌더링하지 않게 하는 것
   function App() {
     const [value, setValue] = React.useState("Save Changes");
     const changeValue = () => setValue("Revert Changes");
     return(
       <div>
-        <Btn text={value} changeValue={changeValue} /> {/*props로 함수를 보내줄 수도 있음*/}
-        <Btn text="Continue" /> {/*문제점: 위 버튼이 변경될 때 재렌더링되면서 쓸데없이 함께 렌더링됨. 해결책: memo를 사용해서 만일 props에 변화가 없으면 컴포넌트를 렌더링하지 않게 하기*/}
+        <MemorizedBtn text={value} changeValue={changeValue} /> {/*props로 함수를 보내줄 수도 있음*/}
+        <MemorizedBtn text="Continue" /> {/*문제점: 위 버튼이 변경될 때 재렌더링되면서 쓸데없이 함께 렌더링됨. 해결책: memo를 사용해서 만일 props에 변화가 없으면 컴포넌트를 렌더링하지 않게 하기*/}
         {/*포인트: 상위 컴포넌트의 state에 변화가 있으면, 하위 컴포넌트가 모두 재렌더링 된다*/}
       </div>
       );

@@ -1,0 +1,38 @@
+<!--props-->
+<!-- #props 조건문, #props로 인한 컴포넌트 재사용성, #props 매개변수로 {banana} 이런 식으로 꺼내 사용해도 됨, props는 데이터 전달 -->
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script> <!--기본 JS에서 JSX 실행을 위해 Babel 컴파일러 필요-->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+ 
+  //ConfirmBtn과 SaveBtn 컴포넌트를 지우고 Btn으로 통일, props를 사용하면 되기 때문
+  function Btn(props){
+    return <button style={{
+      backgroundColor: "tomato",
+      color:"white",
+      padding:"10px 20px",
+      border: 0,
+      borderRadius: 10,
+      fontSize: props.big ? 18 : 16,
+    }}>{props.text}</button>
+  }
+
+  function App() {
+    return(
+      <div>
+        <Btn text="Save Changes" big={true} /> {/*Btn()함수의 첫번째 인자로 props, 즉 {text:"Save changes"}가 들어감*/}
+        <Btn text="Continue" big={false} />
+      </div>
+      );
+  }
+  
+
+  ReactDOM.render(<App/>, root);
+  </script>
+</html>
